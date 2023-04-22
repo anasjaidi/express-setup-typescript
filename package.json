@@ -15,5 +15,30 @@
   "bugs": {
     "url": "https://github.com/Anasjaidi/express-setup-typescript/issues"
   },
-  "homepage": "https://github.com/Anasjaidi/express-setup-typescript#readme"
+  "homepage": "https://github.com/Anasjaidi/express-setup-typescript#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.1.5",
+    "http-errors": "^2.0.0",
+    "joi": "^17.9.1",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0",
+    "prisma": "^4.13.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.17",
+    "@types/helmet": "^4.0.0",
+    "@types/http-errors": "^2.0.1",
+    "@types/joi": "^17.2.3",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^18.15.13",
+    "nodemon": "^2.0.22"
+  }
 }
