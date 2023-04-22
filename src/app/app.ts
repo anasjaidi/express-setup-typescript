@@ -4,7 +4,6 @@ import morgan from "morgan";
 import cors from "cors";
 import path from "path";
 import appConfig from "../config/app.config";
-import { appConfigType } from "../config/app.types";
 
 // append .env vars to envirement variables
 
@@ -21,7 +20,12 @@ const {
 	corsOption,
 	name,
 	app: { port, debug, logger_format },
-}: appConfigType = appConfig(env)!;
+} = appConfig(env)!;
 
 // create instance from express
 const app = express();
+
+// add some vars to express app
+app.set("port", port);
+app.set("debug", debug);
+app.set("env", name);
