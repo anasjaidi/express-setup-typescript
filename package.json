@@ -1,0 +1,19 @@
+{
+  "name": "express-setup-typescript",
+  "version": "1.0.0",
+  "description": "base setup for express.js with typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anasjaidi/express-setup-typescript.git"
+  },
+  "author": "anas jaidi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anasjaidi/express-setup-typescript/issues"
+  },
+  "homepage": "https://github.com/Anasjaidi/express-setup-typescript#readme"
+}
