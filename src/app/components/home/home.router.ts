@@ -3,6 +3,6 @@ import homeControllers from "./home.controller";
 
 const router = Router()
 
-router.use('/', homeControllers.homeController)
+router.route('/').get(homeControllers.homeController)
 
 export default router

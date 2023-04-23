@@ -6,6 +6,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import AppError from './errors/AppError'
 import homeRouter from "./components/home/home.router";
+import authRouter from "./components/auth/auth.router";
 
 // append .env vars to envirement variables
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
@@ -42,6 +43,7 @@ app.use(
 
 // start resources
 app.use('/api/v1', homeRouter)
+app.use('/api/v1/auth', authRouter)
 
 // start deafult route
 app.use("*", (req, res, next) => {
