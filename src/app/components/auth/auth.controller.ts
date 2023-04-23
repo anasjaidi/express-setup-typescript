@@ -1,13 +1,14 @@
 import ErrorsWrapper from "../../errors/ErrorsWrapper";
+import authServices from "./auth.services";
 
 
 const signUp = ErrorsWrapper(async (req, res, next) => {
-	// const { newUser, token } = await auth.signup(req.body);
+	const { newUser, token } = await authServices.signup(req.body);
 
 	res.status(201).json({
 		status: "success",
-		// data: newUser,
-		// token,
+		data: newUser,
+		token,
 	});
 });
 
@@ -16,11 +17,11 @@ const signIn = ErrorsWrapper(async (req, res, next) => {
 
 
 
-	// const token = await auth.signin({ email, password });
+	const token = await authServices.signin({ email, password });
 
 	res.status(200).json({
 		status: "success",
-		// token,
+		token,
 	});
 });
 

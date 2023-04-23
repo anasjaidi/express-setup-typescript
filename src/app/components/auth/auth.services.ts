@@ -1,28 +1,23 @@
 import jwt from "jsonwebtoken";
-import authDAO from './auth.repository';
-
-
-import bcrypt from 'bcryptjs'
+import authDAO from "./auth.repository";
+import bcrypt from "bcryptjs";
 import AppError from "../../errors/AppError";
 import { promisify } from "util";
-import { newUserObject, userCredantials } from './auth';
-import { User } from '@prisma/client';
-
-
+import { newUserObject, userCredantials } from "./auth";
+import { User } from "@prisma/client";
 
 class AuthServices {
+	private authDAO = authDAO;
+	private static instance: AuthServices;
 
-  private authDAO = authDAO;
-  private static instance: AuthServices;
+	private constructor() {}
 
-	private constructor() {
+	static getInstance() {
+		if (!this.instance) {
+			this.instance = new AuthServices();
+		}
+    return this.instance;
 	}
-
-  static getInstance() {
-    if (!this.instance) {
-      this.instance = new AuthServices()
-    }
-  }
 
 	async signup(user: newUserObject) {
 		const newUser = await this.authDAO.addNewUser(user as User);
@@ -36,7 +31,7 @@ class AuthServices {
 		return { newUser, token };
 	}
 
-	async signin(credentails : userCredantials) {
+	async signin(credentails: userCredantials) {
 		const user = await this.authDAO.getUserByEmail(credentails.email);
 
 		if (!user || !this.compare(credentails.password, user.password)) {
@@ -56,19 +51,19 @@ class AuthServices {
 		return jwt.verify(token, SECRET_KEY);
 	}
 
-	async hash(payload: string, salt:number) {
+	async hash(payload: string, salt: number) {
 		return await bcrypt.hash(payload, salt);
 	}
 
-	async compare(candidate:string, member:string) {
+	async compare(candidate: string, member: string) {
 		return await bcrypt.compare(candidate, member);
 	}
 
-	async generateToken(payload: string , SECRET_KEY : string, EXPIRE_IN : string) {
+	async generateToken(payload: string, SECRET_KEY: string, EXPIRE_IN: string) {
 		return jwt.sign({ id: payload }, SECRET_KEY, { expiresIn: EXPIRE_IN });
 	}
 }
 
-const authServices = AuthServices.getInstance()
+const authServices: AuthServices = AuthServices.getInstance();
 
-export default authServices
+export default authServices;
