@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
 import AppError from './errors/AppError'
+import homeRouter from "./components/home/home.router";
 
 // append .env vars to envirement variables
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
@@ -37,6 +38,10 @@ app.use(morgan(process.env.MORGAN_MODE!));
 app.use(
 	express.static(path.join(__dirname, "./public"), { dotfiles: "ignore" })
 );
+
+
+// start resources
+app.use('/api/v1', homeRouter)
 
 // start deafult route
 app.use("*", (req, res, next) => {
