@@ -8,7 +8,7 @@ import AppError from "./errors/AppError";
 import homeRouter from "./components/home/home.router";
 import authRouter from "./components/auth/auth.router";
 // import imagesUploader from "../media/lib/media.config";
-import uploadImageMiddleWare from "../media/lib/media.middleware";
+// import uploadImageMiddleWare from "../media/lib/media.middleware";
 import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "../conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
@@ -48,9 +48,9 @@ app.use(
 
 // start resources
 app.use("/api/v1", homeRouter);
-app.post("/api/v1/upload", protectRoute ,uploadImageMiddleWare, (req, res) => {
-	res.json(req.file);
-});
+// app.post("/api/v1/upload", protectRoute ,uploadImageMiddleWare.uploadImages, (req, res) => {
+// 	res.json(req.file);
+// });
 app.use("/api/v1/auth", authRouter);
 
 // start deafult route

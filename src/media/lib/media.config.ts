@@ -1,7 +1,10 @@
 import multer from "multer";
 import { Request } from "express";
 import path from "path";
-import { MulterConfFilterCallBackType, MulterStorageConfFunctionType } from "./media";
+import {
+	MulterConfFilterCallBackType,
+	MulterStorageConfFunctionType,
+} from "./media";
 import AppError from "../../app/errors/AppError";
 
 const multerConfDest: MulterStorageConfFunctionType = (req, file, cb) => {
@@ -18,18 +21,19 @@ const imageStorage = multer.diskStorage({
 	filename: multerConfFileName,
 });
 
-const imageFilter: MulterConfFilterCallBackType  = (req, file, cb) => {
+const imageFilter: MulterConfFilterCallBackType = (req, file, cb) => {
 	if (file.mimetype.startsWith("image/")) {
 		cb(null, true);
 	} else {
-		cb(
-			new AppError(400, "Only images are allowed!") as Error,
-			false
-		);
+		cb(new AppError(400, "Only images are allowed!") as Error, false);
 	}
 };
 
-const imagesUploader = multer({storage: imageStorage, fileFilter: imageFilter}) //, limits: {fileSize: 100000000}
+const imageBuffer = multer.memoryStorage();
 
+const imagesUploader = multer({
+	storage: imageBuffer,
+	fileFilter: imageFilter,
+});
 
-export default imagesUploader
+export default imagesUploader;
