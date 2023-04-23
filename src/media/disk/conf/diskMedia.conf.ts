@@ -46,8 +46,8 @@ const multerFileTypeFilter = (
 const uploaderFactory = (
 	location: "MEMORY" | "DISK",
 	mimeType: string,
-	fileType: string,
-	fileLocation: string,
+	fileType: string | null,
+	fileLocation: string | null,
 	maxFileSize: number
 ) => {
 	let storage: multer.StorageEngine;
@@ -56,8 +56,8 @@ const uploaderFactory = (
 		storage = memoryStorage();
 	} else {
 		storage = diskStorage({
-			destination: multerDestinationFactory(fileLocation) as unknown as string,
-			filename: multerFileNameFactory(fileType),
+			destination: multerDestinationFactory(fileLocation!) as unknown as string,
+			filename: multerFileNameFactory(fileType!),
 		});
 	}
 	return multer({
