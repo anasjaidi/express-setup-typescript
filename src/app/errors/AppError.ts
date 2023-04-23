@@ -8,4 +8,5 @@ class AppError extends httpErrors {
 	}
 }
 
+
 module.exports = AppError;
