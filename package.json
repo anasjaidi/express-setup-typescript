@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Anasjaidi/express-setup-typescript#readme",
   "dependencies": {
+    "@prisma/client": "^4.13.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -27,6 +28,7 @@
     "joi": "^17.9.1",
     "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "prisma": "^4.13.0"
   },
   "devDependencies": {
@@ -39,6 +41,7 @@
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
+    "@types/multer": "^1.4.7",
     "@types/node": "^18.15.13",
     "nodemon": "^2.0.22"
   }
