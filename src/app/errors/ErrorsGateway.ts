@@ -2,8 +2,6 @@ import { ErrorRequestHandler } from 'express';
 import { EnvModesErrorDispatcher } from '../types/errors';
 
 
-const prismaErrors = require("./prisma/prismaErrors");
-
 const proErrors: EnvModesErrorDispatcher = (err, res) => {
 	if (err.isOperational) {
 		// opeartional, trusted: send error to the client
@@ -64,3 +62,6 @@ const ErrorsGateway : ErrorRequestHandler = (err, req, res, next) => {
 		proErrors(err, res);
 	}
 };
+
+
+export default ErrorsGateway

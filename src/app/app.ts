@@ -4,6 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
+import AppError from './errors/AppError'
 
 // append .env vars to envirement variables
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
@@ -12,6 +13,7 @@ dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
 const env = process.env.NODE_ENV || "development";
 
 import appConfigs from "../conf/app.config";
+import ErrorsGateway from './errors/ErrorsGateway';
 const {
 	corsOption,
 	name,
@@ -38,10 +40,9 @@ app.use(
 
 // start deafult route
 app.use("*", (req, res, next) => {
-	res.status(404).json({
-		status: "fail",
-		message: `requested url ${req.baseUrl} not found.`,
-	});
+	next(new AppError(404, `Requested URL ${req.baseUrl} not found.`))
 });
+
+app.use(ErrorsGateway)
 
 export default app;
