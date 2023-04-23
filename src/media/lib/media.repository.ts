@@ -14,7 +14,9 @@ class MediaDAO {
 		return this.instance;
 	}
 
-	async createMedia(media: Media): Promise<Media> {
+	async createMedia(
+		media: Omit<Media, "id" | "createdAt" | "updatedAt">
+	): Promise<Media> {
 		return this.media.create({ data: media });
 	}
 

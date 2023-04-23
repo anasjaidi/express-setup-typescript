@@ -10,7 +10,6 @@ const multerConfDest: MulterStorageConfFunctionType = (req, file, cb) => {
 
 const multerConfFileName: MulterStorageConfFunctionType = (req, file, cb) => {
 	const ext = file.mimetype.split("/")[1];
-  console.log(file);
 	cb(null, `image-${"req.user.uid"}-${Date.now()}.${ext}`);
 };
 
@@ -20,7 +19,6 @@ const imageStorage = multer.diskStorage({
 });
 
 const imageFilter: MulterConfFilterCallBackType  = (req, file, cb) => {
-  console.log(file);
 	if (file.mimetype.startsWith("image/")) {
 		cb(null, true);
 	} else {
@@ -31,7 +29,7 @@ const imageFilter: MulterConfFilterCallBackType  = (req, file, cb) => {
 	}
 };
 
-const imagesUploader = multer({storage: imageStorage, fileFilter: imageFilter, limits: {fileSize: 10000000}})
+const imagesUploader = multer({storage: imageStorage, fileFilter: imageFilter}) //, limits: {fileSize: 100000000}
 
 
 export default imagesUploader

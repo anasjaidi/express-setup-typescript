@@ -24,7 +24,7 @@ model Media {
   id        String   @id @default(uuid())
   name      String
   mimetype  String
-  size      Int
+  size      Float
   url       String
   uploader  User     @relation(fields: [uploderId], references: [uid])
   uploderId String
