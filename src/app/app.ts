@@ -18,7 +18,6 @@ const {
 	app: { port, debug, logger_format },
 } = appConfigs(env)!;
 
-
 // create instance from express
 const app = express();
 
@@ -27,10 +26,21 @@ app.set("port", port);
 app.set("debug", debug);
 app.set("env", name);
 
-
 // initialize middlewares
-app.use(cors());
+app.use(cors(corsOption));
+app.use(helmet())
 app.use(express.json());
 app.use(morgan(process.env.MORGAN_MODE!));
 // app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "./public"), { dotfiles: "ignore" }));
+app.use(
+	express.static(path.join(__dirname, "./public"), { dotfiles: "ignore" })
+);
+
+
+// start deafult route
+app.use('*', (req, res, next) => {
+  res.status(404).json({
+    status: 'fail',
+    message: `requested url ${req.baseUrl} not found.`
+  })
+})
