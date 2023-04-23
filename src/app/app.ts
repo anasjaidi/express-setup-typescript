@@ -44,3 +44,5 @@ app.use('*', (req, res, next) => {
     message: `requested url ${req.baseUrl} not found.`
   })
 })
+
+export default app
