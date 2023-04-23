@@ -16,4 +16,4 @@ const Validator = (schema: Joi.ObjectSchema) => {
 	});
 };
 
-module.exports = Validator;
+export default Validator;
