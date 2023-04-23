@@ -15,4 +15,4 @@ const userSignInSchema = Joi.object().keys({
 
 const authValidationSchemas = { userSignUpSchema, userSignInSchema };
 
-export default authValidationSchemas
+export default authValidationSchemas;

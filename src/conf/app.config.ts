@@ -17,4 +17,5 @@ const proConfig = { ...CommonConfs, name: "production" };
 
 const configs = [devConfig, testConfig, proConfig];
 
-export default (mode = "development") => configs.find((conf) => conf.name === mode);
+export default (mode = "development") =>
+	configs.find((conf) => conf.name === mode);

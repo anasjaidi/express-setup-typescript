@@ -1,7 +1,6 @@
 import ErrorsWrapper from "../../errors/ErrorsWrapper";
 import authServices from "./auth.services";
 
-
 const signUp = ErrorsWrapper(async (req, res, next) => {
 	const { newUser, token } = await authServices.signup(req.body);
 
@@ -14,8 +13,6 @@ const signUp = ErrorsWrapper(async (req, res, next) => {
 
 const signIn = ErrorsWrapper(async (req, res, next) => {
 	const { email, password } = req.body;
-
-
 
 	const token = await authServices.signin({ email, password });
 
@@ -30,4 +27,4 @@ const authControllers = {
 	signUp,
 };
 
-export default authControllers
+export default authControllers;

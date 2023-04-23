@@ -16,12 +16,11 @@ class AuthServices {
 		if (!this.instance) {
 			this.instance = new AuthServices();
 		}
-    return this.instance;
+		return this.instance;
 	}
 
 	async signup(user: newUserObject) {
-
-    user.password = await this.hash(user.password, 12);
+		user.password = await this.hash(user.password, 12);
 
 		const newUser = await this.authDAO.addNewUser(user as User);
 

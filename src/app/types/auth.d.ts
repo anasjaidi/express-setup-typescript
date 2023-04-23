@@ -5,7 +5,7 @@ export interface AuthRequest extends Request {
 }
 
 export type DecodedToken = {
-  id: string,
-  iat: number,
-  exp: number
-}
+	id: string;
+	iat: number;
+	exp: number;
+};

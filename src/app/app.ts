@@ -4,7 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
-import AppError from './errors/AppError'
+import AppError from "./errors/AppError";
 import homeRouter from "./components/home/home.router";
 import authRouter from "./components/auth/auth.router";
 
@@ -15,7 +15,7 @@ dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
 const env = process.env.NODE_ENV || "development";
 
 import appConfigs from "../conf/app.config";
-import ErrorsGateway from './errors/ErrorsGateway';
+import ErrorsGateway from "./errors/ErrorsGateway";
 const {
 	corsOption,
 	name,
@@ -40,16 +40,15 @@ app.use(
 	express.static(path.join(__dirname, "./public"), { dotfiles: "ignore" })
 );
 
-
 // start resources
-app.use('/api/v1', homeRouter)
-app.use('/api/v1/auth', authRouter)
+app.use("/api/v1", homeRouter);
+app.use("/api/v1/auth", authRouter);
 
 // start deafult route
 app.use("*", (req, res, next) => {
-	next(new AppError(404, `Requested URL ${req.baseUrl} not found.`))
+	next(new AppError(404, `Requested URL ${req.baseUrl} not found.`));
 });
 
-app.use(ErrorsGateway)
+app.use(ErrorsGateway);
 
 export default app;

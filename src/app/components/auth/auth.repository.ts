@@ -1,5 +1,5 @@
 import prismaClientDb from "../../../database/prismaClient.db";
-import {User} from '@prisma/client'
+import { User } from "@prisma/client";
 
 class AuthDAO {
 	private user = prismaClientDb.user;
@@ -8,12 +8,12 @@ class AuthDAO {
 
 	private constructor() {}
 
-  static getInstance() {
-    if (!this.instance) {
-      this.instance = new AuthDAO()
-    }
-    return this.instance;
-  }
+	static getInstance() {
+		if (!this.instance) {
+			this.instance = new AuthDAO();
+		}
+		return this.instance;
+	}
 
 	async getAllUsers() {
 		return await this.user.findMany();
@@ -60,6 +60,6 @@ class AuthDAO {
 	}
 }
 
-const authDAO = AuthDAO.getInstance()
+const authDAO = AuthDAO.getInstance();
 
-export default authDAO
+export default authDAO;

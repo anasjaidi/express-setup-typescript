@@ -1,8 +1,7 @@
 import express from "express";
-import Validator from '../../middlewares/validation.middleware'
+import Validator from "../../middlewares/validation.middleware";
 import authValidationSchemas from "./auth.validation";
 import authControllers from "./auth.controller";
-
 
 const router = express.Router();
 
@@ -17,4 +16,4 @@ router.post(
 	authControllers.signIn
 );
 
-export default router
+export default router;

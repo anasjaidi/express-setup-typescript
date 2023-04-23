@@ -4,7 +4,6 @@ const port = app.get("port");
 const env = app.get("env");
 const debug = app.get("debug");
 
-
 // start listening on port specified
 const server = app.listen(port);
 
@@ -22,7 +21,7 @@ process.on("SIGINT", () => {
 	});
 });
 
-process.on("unhandledRejection", (err : Error) => {
+process.on("unhandledRejection", (err: Error) => {
 	console.log("Unhandled Rejection! 💥 Server shuting Down...");
 	console.log(err.name, err.message);
 	server.close(() => {
