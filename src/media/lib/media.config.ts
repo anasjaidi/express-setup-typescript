@@ -12,22 +12,22 @@ const multerConfDest: MulterStorageConfFunctionType = (req, file, cb) => {
 };
 
 const multerConfFileName: MulterStorageConfFunctionType = (req, file, cb) => {
-	const ext = file.mimetype.split("/")[1];
+  const ext = file.mimetype.split("/")[1];
 	cb(null, `image-${"req.user.uid"}-${Date.now()}.${ext}`);
 };
 
+const imageFilter: MulterConfFilterCallBackType = (req, file, cb) => {
+  if (file.mimetype.startsWith("image/")) {
+    cb(null, true);
+  } else {
+    cb(new AppError(400, "Only images are allowed!") as Error, false);
+  }
+};
 const imageStorage = multer.diskStorage({
 	destination: multerConfDest as unknown as string,
 	filename: multerConfFileName,
 });
 
-const imageFilter: MulterConfFilterCallBackType = (req, file, cb) => {
-	if (file.mimetype.startsWith("image/")) {
-		cb(null, true);
-	} else {
-		cb(new AppError(400, "Only images are allowed!") as Error, false);
-	}
-};
 
 const imageBuffer = multer.memoryStorage();
 
