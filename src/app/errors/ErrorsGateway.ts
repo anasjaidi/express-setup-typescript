@@ -60,6 +60,11 @@ const ErrorsGateway : ErrorRequestHandler = (err, req, res, next) => {
 			return jwtErrorsHandlers.invalidToken(err, res);
 		} else if (err.name === "TokenExpiredError") {
 			return jwtErrorsHandlers.expiredToken(err, res);
+		} else if (err.code === "LIMIT_FILE_SIZE") {
+			return res.status(400).json({
+				status: "fail",
+				message: "fail is to big than the allowed size."
+			})
 		}
 		proErrors(err, res);
 	}
