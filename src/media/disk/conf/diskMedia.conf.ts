@@ -6,12 +6,6 @@ import {
 	MulterStorageConfFunctionType,
 } from "./diskMediaConf";
 
-// TODO: read it from env vars
-
-const LOCATION = "MEMORY";
-const MAX_IMAGE_SIZE = 100 * 1024 * 1024;
-const IMAGES_LOCATION = "uploads";
-
 // start Storage Config Functions
 
 const multerDestinationFactory = (

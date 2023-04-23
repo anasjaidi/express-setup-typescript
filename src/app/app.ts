@@ -10,7 +10,7 @@ import authRouter from "./components/auth/auth.router";
 // import imagesUploader from "../media/lib/media.config";
 // import uploadImageMiddleWare from "../media/lib/media.middleware";
 import ErrorsGateway from "./errors/ErrorsGateway";
-import appConfigs from "../conf/app.config";
+import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
 
 

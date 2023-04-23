@@ -1,8 +1,9 @@
+import { User } from "@prisma/client";
 import { Request } from "express";
 import { File } from "multer";
 
 interface AuthedReq extends Request {
-	user;
+	user: User;
 }
 
 export type MulterStorageConfFunctionType = (
