@@ -10,6 +10,6 @@ const uniqueValueError : EnvModesErrorDispatcher = (err, res) => {
 
 
 
-const prismaErrors = { uniqueValueError };
+const prismaErrorsHandlers = { uniqueValueError };
 
-export default prismaErrors
+export default prismaErrorsHandlers

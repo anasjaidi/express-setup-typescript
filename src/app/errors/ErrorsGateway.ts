@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 import { EnvModesErrorDispatcher } from '../types/errors';
-import prismaErrors from './prisma.errors';
+import prismaErrorshandlers from './prisma.errors';
 import jwtErrorsHandlers from './jwt.errors';
 
 
@@ -55,7 +55,7 @@ const ErrorsGateway : ErrorRequestHandler = (err, req, res, next) => {
 		//
 	} else {
 		if (err.code === "P2002") {
-			return prismaErrors.uniqueValueError(err, res);
+			return prismaErrorshandlers.uniqueValueError(err, res);
 		} else if (err.name === "JsonWebTokenError") {
 			return jwtErrorsHandlers.invalidToken(err, res);
 		} else if (err.name === "TokenExpiredError") {
