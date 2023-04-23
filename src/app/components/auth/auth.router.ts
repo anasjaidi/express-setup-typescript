@@ -1,6 +1,7 @@
 import express from "express";
 import Validator from '../../middlewares/validation.middleware'
 import authValidationSchemas from "./auth.validation";
+import authControllers from "./auth.controller";
 
 
 const router = express.Router();
@@ -8,18 +9,12 @@ const router = express.Router();
 router.post(
 	"/signup",
 	Validator(authValidationSchemas.userSignUpSchema),
-  (req, res, next) => {
-    res.status(200).send('test')
-  }
-	// userController.signUp
+	authControllers.signUp
 );
 router.post(
 	"/signin",
 	Validator(authValidationSchemas.userSignInSchema),
-	(req, res, next) => {
-		res.status(200).send("test");
-	}
-	// userController.signIn
+	authControllers.signIn
 );
 
 export default router
