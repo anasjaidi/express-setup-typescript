@@ -1,6 +1,7 @@
 import { ErrorRequestHandler } from 'express';
 import { EnvModesErrorDispatcher } from '../types/errors';
 import prismaErrors from './prisma.errors';
+import jwtErrorsHandlers from './jwt.errors';
 
 
 const proErrors: EnvModesErrorDispatcher = (err, res) => {
@@ -56,9 +57,9 @@ const ErrorsGateway : ErrorRequestHandler = (err, req, res, next) => {
 		if (err.code === "P2002") {
 			return prismaErrors.uniqueValueError(err, res);
 		} else if (err.name === "JsonWebTokenError") {
-			return prismaErrors.invalidToken(err, res);
+			return jwtErrorsHandlers.invalidToken(err, res);
 		} else if (err.name === "TokenExpiredError") {
-			return prismaErrors.expiredToken(err, res);
+			return jwtErrorsHandlers.expiredToken(err, res);
 		}
 		proErrors(err, res);
 	}
