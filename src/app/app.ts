@@ -17,3 +17,12 @@ const {
 	name,
 	app: { port, debug, logger_format },
 } = appConfigs(env)!;
+
+
+// create instance from express
+const app = express();
+
+// add some vars to express app
+app.set("port", port);
+app.set("debug", debug);
+app.set("env", name);
