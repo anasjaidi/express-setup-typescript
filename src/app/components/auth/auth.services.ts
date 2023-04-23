@@ -20,6 +20,9 @@ class AuthServices {
 	}
 
 	async signup(user: newUserObject) {
+
+    user.password = await this.hash(user.password, 12);
+
 		const newUser = await this.authDAO.addNewUser(user as User);
 
 		const token = await this.generateToken(
@@ -34,8 +37,8 @@ class AuthServices {
 	async signin(credentails: userCredantials) {
 		const user = await this.authDAO.getUserByEmail(credentails.email);
 
-		if (!user || !this.compare(credentails.password, user.password)) {
-			throw new AppError.Unauthorized("invalid email, or password.");
+		if (!user || !(await this.compare(credentails.password, user.password))) {
+			throw new AppError(401, "email or password are invalids.");
 		}
 
 		const token = await this.generateToken(
