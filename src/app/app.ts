@@ -48,11 +48,15 @@ app.use("/api/v1", homeRouter);
 app.post(
 	"/api/v1/upload",
 	protectRoute,
-	DiskMediaImages.single.singleMemoryImageUploadMiddleware,
-	DiskMediaImages.single.singleImageCroperMiddlewareFactory(500, 500, 80),
-	DiskMediaImages.single.addSingleDiskImageToLib,
+	// DiskMediaImages.single.singleMemoryImageUploadMiddleware,
+	// DiskMediaImages.single.singleImageCroperMiddlewareFactory(500, 500, 80),
+	// DiskMediaImages.single.addSingleDiskImageToLib,
+	//////////////////////////////////////////////////
+	DiskMediaImages.many.manyMemoryImageUploadMiddleware,
+	DiskMediaImages.many.manyImagesCroperMiddlewareFactory(700, 700, 100),
+	DiskMediaImages.many.addManyDiskImagesToLib,
 	(req, res) => {
-		res.json(req.file);
+		res.json({ status: "success" });
 	}
 );
 app.use("/api/v1/auth", authRouter);

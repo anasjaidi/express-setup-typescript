@@ -27,7 +27,7 @@ const manyMemoryImageUploadMiddleware = uploaderFactory(
 	null,
 	null,
 	100 * 1024 * 1024
-).single("image");
+).fields([{name: "images", maxCount: 2}]);
 
 const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.file) {
@@ -79,7 +79,10 @@ const singleImageCroperMiddlewareFactory = (
 	return ErrorsWrapper(async (req, res, next) => {
 		if (!req.file) next(new AppError(400, "no image provided"));
 
-		const imagePath = `image-${(req as AuthedReq).user.uid}-${Date.now()}.jpeg`;
+		const imagePath =
+			path.join(__dirname, "..", "..", "..", "..", "uploads") +
+			"/" +
+			`image-${(req as AuthedReq).user.uid}-${Date.now()}.jpeg`;
 
 		await sharp(req.file?.buffer)
 			.resize(W, H)
@@ -103,11 +106,8 @@ const manyImagesCroperMiddlewareFactory = (
 
 		await Promise.all(
 			req.files?.images.map(async (img, i) => {
-				const imagePath =
-					path.join(__dirname, "..", "..", "..", "uploads") +
-					"/" +
-					`image-${(req as AuthedReq).user.uid}-${Date.now()}-${i}.jpeg`;
-          await sharp(req.file?.buffer)
+				const imagePath =	(path.join(__dirname, "..", "..", "..", "..", "uploads") + "/" + `image-${(req as AuthedReq).user.uid}-${Date.now()}-${i + 1}.jpeg`)
+          await sharp(img.buffer)
             .resize(W, H)
             .toFormat("jpeg")
             .jpeg({ quality: quality })
