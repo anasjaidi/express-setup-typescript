@@ -2,6 +2,8 @@ import { ErrorRequestHandler } from 'express';
 import { EnvModesErrorDispatcher } from '../types/errors';
 import prismaErrorshandlers from './prisma.errors';
 import jwtErrorsHandlers from './jwt.errors';
+import { MulterError } from 'multer';
+import multerErrors from './multer.errors';
 
 
 const proErrors: EnvModesErrorDispatcher = (err, res) => {
@@ -53,6 +55,7 @@ const ErrorsGateway : ErrorRequestHandler = (err, req, res, next) => {
 		devErrors(err, res);
 	} else if (req.app.get("env") === "testing") {
 		//
+		res.send("ahm")
 	} else {
 		if (err.code === "P2002") {
 			return prismaErrorshandlers.uniqueValueError(err, res);
@@ -65,6 +68,9 @@ const ErrorsGateway : ErrorRequestHandler = (err, req, res, next) => {
 				status: "fail",
 				message: "fail is to big than the allowed size."
 			})
+		} else if (err instanceof MulterError) {
+			if (err.code === "LIMIT_UNEXPECTED_FILE")
+				return multerErrors.fieldUnexpected(err, res)
 		}
 		proErrors(err, res);
 	}

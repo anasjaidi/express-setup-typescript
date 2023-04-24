@@ -6,7 +6,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import AppError from "./errors/AppError";
 import homeRouter from "./components/home/home.router";
-import authRouter from "./components/auth/auth.router";
+import authRouter from "./components/auth/custom/jwt/auth.router";
 import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";

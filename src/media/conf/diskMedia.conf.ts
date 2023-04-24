@@ -1,6 +1,6 @@
 import multer, { diskStorage, memoryStorage } from "multer";
 import { join } from "path";
-import AppError from "../../../app/errors/AppError";
+import AppError from "../../app/errors/AppError";
 import {
 	MulterConfFilterCallBackType,
 	MulterStorageConfFunctionType,

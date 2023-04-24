@@ -5,8 +5,8 @@ import path from "path";
 import AppError from "../../../app/errors/AppError";
 import ErrorsWrapper from "../../../app/errors/ErrorsWrapper";
 import MediaLibDAOSingleton from "../../lib/media.repository";
-import uploaderFactory from "../conf/diskMedia.conf";
-import { AuthedReq } from "../conf/diskMediaConf";
+import uploaderFactory from "../../conf/diskMedia.conf";
+import { AuthedReq } from "../../conf/diskMediaConf";
 import sharp from "sharp";
 
 //   }
