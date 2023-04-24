@@ -1,4 +1,4 @@
-import ErrorsWrapper from "../../errors/ErrorsWrapper";
+import ErrorsWrapper from "../../../../errors/ErrorsWrapper";
 import authServices from "./auth.services";
 
 const signUp = ErrorsWrapper(async (req, res, next) => {

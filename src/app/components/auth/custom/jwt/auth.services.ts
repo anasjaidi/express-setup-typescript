@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import authDAO from "./auth.repository";
 import bcrypt from "bcryptjs";
-import AppError from "../../errors/AppError";
+import AppError from "../../../../errors/AppError";
 import { promisify } from "util";
 import { newUserObject, userCredantials } from "./auth";
 import { User } from "@prisma/client";

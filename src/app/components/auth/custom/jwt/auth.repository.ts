@@ -1,4 +1,4 @@
-import prismaClientDb from "../../../database/prismaClient.db";
+import prismaClientDb from "../../../../../databases/prisma/prismaClient.db";
 import { User } from "@prisma/client";
 
 class AuthDAO {

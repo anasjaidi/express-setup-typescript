@@ -1,5 +1,5 @@
 import { Media } from "@prisma/client";
-import PrismaClientSingleton from "../../database/prisma/prismaClient.db";
+import PrismaClientSingleton from "../../databases/prisma/prismaClient.db";
 class MediaDAO {
 	private static instance: MediaDAO;
 

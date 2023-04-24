@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../errors/AppError";
 import jwt from "jsonwebtoken";
-import authDAO from "../components/auth/auth.repository";
+import authDAO from "../components/auth/custom/jwt/auth.repository";
 import { AuthRequest, DecodedToken } from "../types/auth";
 
 async function protectRoute(

@@ -6,12 +6,12 @@ const mongoConnection = mongoose.createConnection(
 	mongoConfig.mongo_options as ConnectOptions
 );
 
-mongoConnection.on("connect", () => console.log("Mongo DB connected ✅"));
+mongoConnection.on("connected", () => console.log("\nMongo DB connected ✅"));
 
 mongoConnection.on("error", () => console.log("Mongo DB not connected 💥"));
 
 mongoConnection.on("disconnected", () => {
-	console.log("Disconnected from MongoDB.");
+	console.log("Disconnected from MongoDB 💥.");
 });
 
 

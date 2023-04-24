@@ -4,6 +4,10 @@ import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
+
+// append .env vars to envirement variables
+dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
+
 import AppError from "./errors/AppError";
 import homeRouter from "./components/home/home.router";
 import authRouter from "./components/auth/custom/jwt/auth.router";
@@ -11,9 +15,9 @@ import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
 import DiskMediaImages from "../media/disk/images/image.middleware";
+import mongoConnection from "../databases/mongo/connection/mongo.db";
 
-// append .env vars to envirement variables
-dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
+
 
 // select settings for choosen mode
 const env = process.env.NODE_ENV || "development";
