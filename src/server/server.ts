@@ -1,5 +1,5 @@
 import app from "../app/app";
-import mongoConnection from "../databases/mongo/connection/mongo.db";
+// import mongoConnection from "../databases/mongo/connection/mongo.db";
 import prismaClientDb from "../databases/prisma/prismaClient.db";
 
 const port = app.get("port");
@@ -22,7 +22,7 @@ process.on("SIGINT", async () => {
 		server.close(); // Close the Node.js server
 		console.log("\n\n\nCTRL^C 💥 Server shutting down... \n\n");
 
-		await mongoConnection.close(); // Close the MongoDB connection
+		// await mongoConnection.close(); // Close the MongoDB connection
 
 		await prismaClientDb.$disconnect(); // Disconnect from Prisma
 		console.log("\n\nPrisma disconnected 💥.");

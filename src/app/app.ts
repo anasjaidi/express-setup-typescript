@@ -4,10 +4,8 @@ import path from "path";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import helmet from "helmet";
-import session from 'express-session'
-const MongoStore = require('connect-mongo')(session)
-
-
+import session from "express-session";
+const MongoStore = require("connect-mongo");
 
 // append .env vars to envirement variables
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
@@ -19,10 +17,7 @@ import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
 import DiskMediaImages from "../media/disk/images/image.middleware";
-import mongoConnection from "../databases/mongo/connection/mongo.db";
-
-
-
+// import mongoConnection from "../databases/mongo/connection/mongo.db";
 
 // select settings for choosen mode
 const env = process.env.NODE_ENV || "development";
@@ -54,19 +49,25 @@ app.use(
  * -------------- SESSION SETUP ----------------
  */
 
-const mongoStore = MongoStore(session)
+const sessionStore = new MongoStore({
+	mongoUrl: "mongodb://localhost:27017/auth",
+	// mongooseConnection: mongoConnection,
+	collectionName: "sessions",
+});
 
-const sessionStore = new MongoStore({ mongooseConnection: mongoConnection, collection: 'sessions' });
 
-app.use(session({
-    secret: process.env.SECRET!,
-    resave: false,
-    saveUninitialized: true,
-    store: sessionStore,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // Equals 1 day (1 day * 24 hr/1 day * 60 min/1 hr * 60 sec/1 min * 1000 ms / 1 sec)
-    }
-}));
+
+app.use(
+	session({
+		secret: "some secret keys",
+		resave: false,
+		saveUninitialized: true,
+		store: sessionStore,
+		cookie: {
+			maxAge: 1000 * 60 * 60 * 24, // Equals 1 day (1 day * 24 hr/1 day * 60 min/1 hr * 60 sec/1 min * 1000 ms / 1 sec)
+		},
+	})
+);
 
 // start resources
 app.use("/api/v1", homeRouter);

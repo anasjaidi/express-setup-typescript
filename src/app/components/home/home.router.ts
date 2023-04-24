@@ -7,6 +7,9 @@ const router = Router();
 
 router
 	.route("/")
-	.get(ErrorsWrapper(protectRoute), homeControllers.homeController);
+	.get(
+		// ErrorsWrapper(protectRoute),
+		homeControllers.homeController
+	);
 
 export default router;
