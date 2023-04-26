@@ -15,10 +15,10 @@ class S3_Services {
 		}
 	}
 
-	async uploadFileToS3(file: any, useID: String): Promise<string> | never {
+	async uploadFileToS3(file: any, userId: String, location: string, type: string): Promise<string> | never {
 		const param = {
 			Bucket: process.env.AWS_BUCKET_NAME!,
-			Key: `uploads/img-${useID}-${Date.now()}-${file.originalname}`,
+			Key: `${location}/${type}-${userId}-${Date.now()}-${file.originalname}`,
 			Body: file.buffer,
 		};
 
