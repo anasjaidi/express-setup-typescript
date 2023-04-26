@@ -1,8 +1,8 @@
-import AppError from "../../../app/errors/AppError";
-import ErrorsWrapper from "../../../app/errors/ErrorsWrapper";
-import uploaderFactory from "../../conf/diskMedia.conf";
-import { AuthedReq } from "../../conf/diskMediaConf";
-import s3 from "../aws.repository";
+import AppError from "../../../../app/errors/AppError";
+import ErrorsWrapper from "../../../../app/errors/ErrorsWrapper";
+import uploaderFactory from "../../../conf/diskMedia.conf";
+import { AuthedReq } from "../../../conf/diskMediaConf";
+import s3 from "../../repositories/aws.repository";
 import path from 'path';
 
 
