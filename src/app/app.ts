@@ -17,7 +17,7 @@ import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
 import DiskMediaImages from "../media/disk/images/image.middleware";
-import s3 from "../media/aws/aws.services";
+import s3 from "../media/aws/aws.repository";
 
 // import mongoConnection from "../databases/mongo/connection/mongo.db";
 

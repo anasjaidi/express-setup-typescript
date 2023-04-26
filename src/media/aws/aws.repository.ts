@@ -3,8 +3,16 @@ import { DeleteObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client
 class S3_Services {
 	private s3Client: S3Client;
 	private readonly prefix: String = "https://s3.amazonaws.com/robin.dev/";
-	constructor() {
+
+	private static instance : S3_Services;
+	private constructor() {
 		this.s3Client = new S3Client({});
+	}
+
+	static getInstance() {
+		if (!this.instance) {
+			this.instance = new S3_Services();
+		}
 	}
 
 	async uploadFileToS3(file: any, useID: String): Promise<string> | never {
@@ -29,6 +37,6 @@ class S3_Services {
   }
 }
 
-const s3 = new S3_Services();
+const s3 = S3_Services.getInstance();
 
 export default s3;
