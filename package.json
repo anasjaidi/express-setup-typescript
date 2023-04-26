@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/Anasjaidi/express-setup-typescript#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.319.0",
     "@prisma/client": "^4.13.0",
-    "aws-sdk": "^2.1363.0",
+    "aws-sdk": "^2.1365.0",
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^5.0.0",
     "cors": "^2.8.5",

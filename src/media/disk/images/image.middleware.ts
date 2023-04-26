@@ -31,7 +31,7 @@ const manyMemoryImageUploadMiddleware = uploaderFactory(
 
 const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.file) {
-		return next(new AppError(400, "File not found"));
+		return next(new AppError(409, "File not found"));
 	}
 
 	const { path, mimetype, originalname, size } = req.file!;
@@ -51,7 +51,7 @@ const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 
 const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.files || !("images" in req.files)) {
-		return next(new AppError(400, "File not found"));
+		return next(new AppError(409, "File not found"));
 	}
 
 	await Promise.all(
@@ -77,7 +77,7 @@ const singleImageCroperMiddlewareFactory = (
 	quality: number
 ) => {
 	return ErrorsWrapper(async (req, res, next) => {
-		if (!req.file) next(new AppError(400, "no image provided"));
+		if (!req.file) next(new AppError(409, "no image provided"));
 
 		const imagePath =
 			path.join(__dirname, "..", "..", "..", "..", "uploads") +
@@ -102,7 +102,7 @@ const manyImagesCroperMiddlewareFactory = (
 ) => {
 	return ErrorsWrapper(async (req, res, next) => {
 		if (!req.files || !("images" in req.files))
-			return next(new AppError(400, "no images provided"));
+			return next(new AppError(409, "no images provided"));
 
 		await Promise.all(
 			req.files?.images.map(async (img, i) => {
@@ -117,7 +117,8 @@ const manyImagesCroperMiddlewareFactory = (
             }
 			})
 		);
-
+		
+		
 
 		next();
 	});

@@ -32,7 +32,7 @@ const multerFileTypeFilter = (
 		if (file.mimetype.startsWith("image/")) {
 			cb(null, true);
 		} else {
-			cb(new AppError(400, "Only images are allowed!") as Error, false);
+			cb(new AppError(409, "Only images are allowed!") as Error, false);
 		}
 	};
 };

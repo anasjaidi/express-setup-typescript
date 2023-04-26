@@ -17,6 +17,8 @@ import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
 import DiskMediaImages from "../media/disk/images/image.middleware";
+import s3 from "../media/aws/aws.services";
+
 // import mongoConnection from "../databases/mongo/connection/mongo.db";
 
 // select settings for choosen mode
@@ -68,19 +70,19 @@ app.use(
 		},
 	})
 );
-
+s3; 
 // start resources
 app.use("/api/v1", homeRouter);
 app.post(
 	"/api/v1/upload",
 	protectRoute,
-	// DiskMediaImages.single.singleMemoryImageUploadMiddleware,
+	DiskMediaImages.single.singleMemoryImageUploadMiddleware,
 	// DiskMediaImages.single.singleImageCroperMiddlewareFactory(500, 500, 80),
 	// DiskMediaImages.single.addSingleDiskImageToLib,
 	//////////////////////////////////////////////////
-	DiskMediaImages.many.manyMemoryImageUploadMiddleware,
-	DiskMediaImages.many.manyImagesCroperMiddlewareFactory(700, 700, 100),
-	DiskMediaImages.many.addManyDiskImagesToLib,
+	// DiskMediaImages.many.manyMemoryImageUploadMiddleware,
+	// DiskMediaImages.many.manyImagesCroperMiddlewareFactory(700, 700, 100),
+	DiskMediaImages.single.addSingleDiskImageToLib,
 	(req, res) => {
 		res.json({ status: "success" });
 	}

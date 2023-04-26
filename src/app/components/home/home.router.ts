@@ -8,7 +8,7 @@ const router = Router();
 router
 	.route("/")
 	.get(
-		// ErrorsWrapper(protectRoute),
+		ErrorsWrapper(protectRoute),
 		homeControllers.homeController
 	);
 
