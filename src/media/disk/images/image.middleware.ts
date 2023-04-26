@@ -31,7 +31,7 @@ const manyMemoryImageUploadMiddleware = uploaderFactory(
 
 const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.file) {
-		return next(new AppError(409, "File not found"));
+		return next();
 	}
 
 	const { path, mimetype, originalname, size } = req.file!;
@@ -51,7 +51,7 @@ const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 
 const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.files || !("images" in req.files)) {
-		return next(new AppError(409, "File not found"));
+		return next();
 	}
 
 	await Promise.all(
@@ -71,13 +71,13 @@ const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
 	next();
 });
 
-const singleImageCroperMiddlewareFactory = (
+const singleImageDiskSaverAndCroperMiddlewareFactory = (
 	W: number,
 	H: number,
 	quality: number
 ) => {
 	return ErrorsWrapper(async (req, res, next) => {
-		if (!req.file) next(new AppError(409, "no image provided"));
+		if (!req.file) return next();
 
 		const imagePath =
 			path.join(__dirname, "..", "..", "..", "..", "uploads") +
@@ -95,30 +95,30 @@ const singleImageCroperMiddlewareFactory = (
 	});
 };
 
-const manyImagesCroperMiddlewareFactory = (
+const manyImagesDiskSaverAndCropperMiddlewareFactory = (
 	W: number,
 	H: number,
 	quality: number
 ) => {
 	return ErrorsWrapper(async (req, res, next) => {
-		if (!req.files || !("images" in req.files))
-			return next(new AppError(409, "no images provided"));
+		if (!req.files || !("images" in req.files)) return next();
 
 		await Promise.all(
 			req.files?.images.map(async (img, i) => {
-				const imagePath =	(path.join(__dirname, "..", "..", "..", "..", "uploads") + "/" + `image-${(req as AuthedReq).user.uid}-${Date.now()}-${i + 1}.jpeg`)
-          await sharp(img.buffer)
-            .resize(W, H)
-            .toFormat("jpeg")
-            .jpeg({ quality: quality })
-            .toFile(imagePath);
-            if (req.files && ("images" in req.files)) {
-              req.files.images[i].path = imagePath
-            }
+				const imagePath =
+					path.join(__dirname, "..", "..", "..", "..", "uploads") +
+					"/" +
+					`image-${(req as AuthedReq).user.uid}-${Date.now()}-${i + 1}.jpeg`;
+				await sharp(img.buffer)
+					.resize(W, H)
+					.toFormat("jpeg")
+					.jpeg({ quality: quality })
+					.toFile(imagePath);
+				if (req.files && "images" in req.files) {
+					req.files.images[i].path = imagePath;
+				}
 			})
 		);
-		
-		
 
 		next();
 	});
@@ -126,13 +126,13 @@ const manyImagesCroperMiddlewareFactory = (
 
 const single = {
   singleMemoryImageUploadMiddleware,
-  singleImageCroperMiddlewareFactory,
+  singleImageDiskSaverAndCroperMiddlewareFactory,
   addSingleDiskImageToLib
 }
 
 const many = {
   manyMemoryImageUploadMiddleware,
-  manyImagesCroperMiddlewareFactory,
+  manyImagesDiskSaverAndCropperMiddlewareFactory,
   addManyDiskImagesToLib
 }
 

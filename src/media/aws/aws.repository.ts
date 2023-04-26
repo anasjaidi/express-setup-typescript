@@ -13,6 +13,7 @@ class S3_Services {
 		if (!this.instance) {
 			this.instance = new S3_Services();
 		}
+		return this.instance;
 	}
 
 	async uploadFileToS3(file: any, userId: String, location: string, type: string): Promise<string> | never {
