@@ -164,11 +164,32 @@ const manyImagesDiskSaverAndCropperMiddlewareFactory = (
 	});
 };
 
+const deleteSingleImageFromLocalStorage = ErrorsWrapper(async (req, res, next) => {
+	// check if there is a file to delete
+	if (!req.body.old) next()
+
+	// delete file from local storage
+	await diskRepository.deleteFileFromStorage(req.body.old.path)
+})
+
+const deleteManyImagesFromLocalStorage = ErrorsWrapper(async (req, res, next) => {
+	// check if there is a file to delete
+	if (!req.body.olds) next();
+
+	// fire a bunch of promises at same time and wait them
+	await Promise.all(
+		(req.body.olds as []).map((file) =>
+			diskRepository.deleteFileFromStorage(req.body.old.path) // return promise of deleting a file
+		)
+	);
+})
+
 const single = {
 	singleMemoryImageUploadMiddleware,
 	singleImageDiskSaverAndCroperMiddlewareFactory,
 	addSingleDiskImageToLib,
 	deleteSingleImageFromLib,
+	deleteSingleImageFromLocalStorage
 };
 
 const many = {
@@ -176,6 +197,7 @@ const many = {
 	manyImagesDiskSaverAndCropperMiddlewareFactory,
 	addManyDiskImagesToLib,
 	deleteManyImagesFromLib,
+	deleteManyImagesFromLocalStorage
 };
 
 const DiskMediaImages = {
