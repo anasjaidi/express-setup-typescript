@@ -8,6 +8,8 @@ import {
 
 // start Storage Config Functions
 
+
+// Factory for creating Multer detinsation callback
 const multerDestinationFactory = (
 	fileLocation: string
 ): MulterStorageConfFunctionType => {
@@ -16,6 +18,7 @@ const multerDestinationFactory = (
 	};
 };
 
+// factory for creaing Multer file-name callback
 const multerFileNameFactory = (
 	fileType: string
 ): MulterStorageConfFunctionType => {
@@ -25,6 +28,7 @@ const multerFileNameFactory = (
 	};
 };
 
+// Factory to create Multer Filter callback
 const multerFileTypeFilter = (
 	mimeType: string
 ): MulterConfFilterCallBackType => {
@@ -37,6 +41,7 @@ const multerFileTypeFilter = (
 	};
 };
 
+// Factory for creating uploader based on args 
 const uploaderFactory = (
 	location: "MEMORY" | "DISK",
 	mimeType: string,

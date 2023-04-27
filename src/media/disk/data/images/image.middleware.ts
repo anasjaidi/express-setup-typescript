@@ -27,12 +27,16 @@ const manyMemoryImageUploadMiddleware = uploaderFactory(
 ).fields([{ name: "images", maxCount: 2 }]);
 
 const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
+
+	// check if there is a file with req payload
 	if (!req.file) {
 		return next();
 	}
 
+	// extract infos about media
 	const { path, mimetype, originalname, size } = req.file!;
 
+	// init save file object
 	const file = {
 		name: originalname,
 		url: path,
@@ -41,39 +45,58 @@ const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 		uploderId: (req as AuthedReq).user.uid,
 	};
 
+	// ave object to media library
 	const newFile = await MediaLibDAOSingleton.createMedia(file);
 
+	// calling next middleware
 	next();
 });
 
 const deleteSingleImageFromLib = ErrorsWrapper(async (req, res, next) => {
+	// check if ther's image to delete from lib
 	if (!req.body.old) {
 		return next();
 	}
 
+	// delete file from media lib
 	await MediaLibDAOSingleton.deleteMedia(req.body.old.id);
+
+	// calling next middleware
+	next();
 });
 
 const deleteManyImagesFromLib = ErrorsWrapper(async (req, res, next) => {
+	// check if ther's a images to delete from lib
 	if (!req.body.olds) {
 		return next();
 	}
+
+	// fire a bunch of promises at same time and wait them
 	await Promise.all(
 		req.body.olds.map((old) => {
+			// delete file from media lib
 			MediaLibDAOSingleton.deleteMedia(old.id);
 		})
 	);
-	MediaLibDAOSingleton.deleteMedia(req.body.old);
+
+	// calling next middleware
+	next()
 });
 
 const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
+	// check if there's images in the req payload
 	if (!req.files || !("images" in req.files)) {
 		return next();
 	}
 
+	// fire a bunch of promises at same time and wait them
 	await Promise.all(
 		req.files.images.map(async (img, i) => {
+
+			// extract file infos from image
 			const { path, mimetype, originalname, size } = img;
+
+			// init file object to save it 
 			const file = {
 				name: originalname,
 				url: path,
@@ -82,6 +105,7 @@ const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
 				uploderId: (req as AuthedReq).user.uid,
 			};
 
+			// save file to Media Library
 			const newFile = await MediaLibDAOSingleton.createMedia(file);
 		})
 	);
