@@ -8,6 +8,8 @@ import MediaLibDAOSingleton from "../../../lib/media.repository";
 import uploaderFactory from "../../../conf/diskMedia.conf";
 import { AuthedReq } from "../../../conf/diskMediaConf";
 import sharp from "sharp";
+import diskRepository from "../../repositories/disk.repository";
+
 
 //   }
 
@@ -48,6 +50,14 @@ const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 
 	next();
 });
+
+const deleteSingleImageFromLib = ErrorsWrapper(async (req, res, next) => {
+	if (!req.body.old) {
+		return next()
+	}
+
+	await MediaLibDAOSingleton.deleteMedia(req.body.old)
+})
 
 const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.files || !("images" in req.files)) {

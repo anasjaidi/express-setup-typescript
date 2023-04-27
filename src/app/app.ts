@@ -16,7 +16,7 @@ import authRouter from "./components/auth/custom/jwt/auth.router";
 import ErrorsGateway from "./errors/ErrorsGateway";
 import appConfigs from "./conf/app.config";
 import protectRoute from "./middlewares/auth.middleware";
-import DiskMediaImages from "../media/disk/images/image.middleware";
+import DiskMediaImages from "../media/disk/data/images/image.middleware";
 import s3 from "../media/aws/aws.repository";
 
 // import mongoConnection from "../databases/mongo/connection/mongo.db";
@@ -82,7 +82,7 @@ app.post(
 	//////////////////////////////////////////////////
 	// DiskMediaImages.many.manyMemoryImageUploadMiddleware,
 	// DiskMediaImages.many.manyImagesCroperMiddlewareFactory(700, 700, 100),
-	DiskMediaImages.single.addSingleDiskImageToLib,
+	// DiskMediaImages.single.addSingleDiskImageToLib,
 	(req, res) => {
 		res.json({ status: "success" });
 	}
