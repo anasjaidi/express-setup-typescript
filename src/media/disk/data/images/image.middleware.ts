@@ -10,7 +10,6 @@ import { AuthedReq } from "../../../conf/diskMediaConf";
 import sharp from "sharp";
 import diskRepository from "../../repositories/disk.repository";
 
-
 //   }
 
 // }
@@ -29,7 +28,7 @@ const manyMemoryImageUploadMiddleware = uploaderFactory(
 	null,
 	null,
 	100 * 1024 * 1024
-).fields([{name: "images", maxCount: 2}]);
+).fields([{ name: "images", maxCount: 2 }]);
 
 const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.file) {
@@ -53,11 +52,23 @@ const addSingleDiskImageToLib = ErrorsWrapper(async (req, res, next) => {
 
 const deleteSingleImageFromLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.body.old) {
-		return next()
+		return next();
 	}
 
-	await MediaLibDAOSingleton.deleteMedia(req.body.old)
-})
+	await MediaLibDAOSingleton.deleteMedia(req.body.old);
+});
+
+const deleteManyImagesFromLib = ErrorsWrapper(async (req, res, next) => {
+	if (!req.body.olds) {
+		return next();
+	}
+	await Promise.all(
+		req.body.olds.map((old) => {
+			MediaLibDAOSingleton.deleteMedia(old.id);
+		})
+	);
+	MediaLibDAOSingleton.deleteMedia(req.body.old);
+});
 
 const addManyDiskImagesToLib = ErrorsWrapper(async (req, res, next) => {
 	if (!req.files || !("images" in req.files)) {
@@ -135,20 +146,20 @@ const manyImagesDiskSaverAndCropperMiddlewareFactory = (
 };
 
 const single = {
-  singleMemoryImageUploadMiddleware,
-  singleImageDiskSaverAndCroperMiddlewareFactory,
-  addSingleDiskImageToLib
-}
+	singleMemoryImageUploadMiddleware,
+	singleImageDiskSaverAndCroperMiddlewareFactory,
+	addSingleDiskImageToLib,
+};
 
 const many = {
-  manyMemoryImageUploadMiddleware,
-  manyImagesDiskSaverAndCropperMiddlewareFactory,
-  addManyDiskImagesToLib
-}
+	manyMemoryImageUploadMiddleware,
+	manyImagesDiskSaverAndCropperMiddlewareFactory,
+	addManyDiskImagesToLib,
+};
 
 const DiskMediaImages = {
 	single,
-  many
+	many,
 };
 
 export default DiskMediaImages;
