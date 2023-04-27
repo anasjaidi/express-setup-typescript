@@ -5,10 +5,11 @@ class DiskRipository {
 
   private constructor() {}
 
-  static getInstance() {
+  static getInstance(): DiskRipository {
     if (!this.instance) {
       this.instance = new DiskRipository()
     }
+    return this.instance;
   }
 
   async saveFileToDiskStorage(buffer: Buffer, path: string) {
@@ -20,6 +21,6 @@ class DiskRipository {
   }
 }
 
-const diskRepository = DiskRipository.getInstance();
+const diskRepository: DiskRipository = DiskRipository.getInstance();
 
 export default diskRepository;
